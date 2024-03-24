@@ -1,11 +1,27 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Main } from "./components/Main";
+import { Quiz } from "./components/Quiz";
+import { Result } from "./components/Result";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main />,
+  },
+  {
+    path: "/quiz",
+    element: <Quiz />,
+  },
+  {
+    path: "/result",
+    element: <Result />,
+  },
+]);
+
 export function App() {
   return (
     <>
-      <h1>EduQuest</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus ipsum
-        dolorem aspernatur eum possimus cupiditate iste quos impedit perferendis
-      </p>
+      <RouterProvider router={router} />
     </>
   );
 }
