@@ -12,7 +12,7 @@ export const Quiz = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-semibold text-3xl text-blue-400 my-4">Quiz Component</h1>
+      <h1 className="font-semibold text-3xl text-blue-400 my-4">Quiz Aplication</h1>
 
       <Questions />
 
