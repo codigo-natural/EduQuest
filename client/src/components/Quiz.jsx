@@ -1,3 +1,5 @@
+import { Questions } from "./Questions"
+
 export const Quiz = () => {
 
   function onNext() {
@@ -11,6 +13,8 @@ export const Quiz = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="font-semibold text-3xl text-blue-400 my-4">Quiz Component</h1>
+
+      <Questions />
 
       <div className="grid grid-cols-2">
         <button
