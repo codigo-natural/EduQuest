@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { MoveNextQuestion, MovePrevQuestion } from "../hooks/FetchQuestion"
 import { PushAnswer } from "../hooks/setResult"
@@ -6,6 +6,8 @@ import { Questions } from "./Questions"
 
 export const Quiz = () => {
 
+  const [check, setChecked] = useState(undefined)
+  
   const state = useSelector(state => state)
   const { queue, trace } = useSelector(state => state.questions)
   const dispatch = useDispatch()
@@ -19,7 +21,7 @@ export const Quiz = () => {
     console.log('On next click')
     if (trace < queue.length - 1) {
       dispatch(MoveNextQuestion())
-      dispatch(PushAnswer(1))
+      dispatch(PushAnswer(check))
     }
   }
 
@@ -30,11 +32,16 @@ export const Quiz = () => {
     }
   }
 
+  function onChecked(check) {
+    setChecked(check)
+    console.log(check)
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen overflow-auto">
       <h1 className="font-semibold text-3xl text-blue-400 my-4">Quiz Aplication</h1>
 
-      <Questions />
+      <Questions onChecked={onChecked} />
 
       <div className="grid grid-cols-2">
         <button
