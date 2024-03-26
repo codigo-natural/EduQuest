@@ -39,3 +39,22 @@ export const useFetchQuestion = () => {
 
   return [getData, setGetData];
 };
+
+
+// MoveAction Dispatch function
+export const MoveNextQuestion = () => async (dispatch) => {
+  try {
+    dispatch(Action.moveNextAction()); // increase trace by 1
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// prevAction Dispatch function
+export const MovePrevQuestion = () => async (dispatch) => {
+  try {
+    dispatch(Action.movePrevAction()); // decrease trace by 1
+  } catch (error) {
+    console.log(error)
+  }
+}
