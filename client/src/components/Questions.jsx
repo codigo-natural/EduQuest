@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from "react";
-import data from "../database/data";
+// custom Hook
+import { useFetchQuestion } from "../hooks/FetchQuestion";
+import { useSelector } from "react-redux";
 
 export const Questions = () => {
   const [checked, setChecked] = useState(false);
+  const [{ isLoading, apiData, serverError }] = useFetchQuestion()
 
-  const question = data[0]
+  const questions = useSelector(state => state.questions.queue[state.questions.trace])
+  const trace = useSelector(state => state.questions.trace)
 
   useEffect(() => {
-    console.log(data)
+    console.log(trace)
   })
 
   function onSelected() {
     setChecked(true);
-    console.log(`selected ${checked}`);
+    // console.log(`selected ${checked}`);
   }
+
+  if (isLoading) return <p>isLoading</p>
+  if (serverError) return <p>{serverError || "unknown Error"}</p>
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">{question.question}</h2>
+      <h2 className="text-xl font-bold mb-4">{questions?.question}</h2>
 
       <ul
         className="list-none"
-        key={question.id}
+        key={questions?.id}
       >
         {
-          question.options.map((question, index) => (
+          questions?.options.map((question, index) => (
             <li
               className="flex items-center mb-2"
               key={index}
