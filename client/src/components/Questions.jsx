@@ -3,20 +3,20 @@ import React, { useEffect, useState } from "react";
 import { useFetchQuestion } from "../hooks/FetchQuestion";
 import { useSelector } from "react-redux";
 
-export const Questions = () => {
-  const [checked, setChecked] = useState(false);
+export const Questions = ({ onChecked }) => {
+  const [checked, setChecked] = useState(null);
   const [{ isLoading, apiData, serverError }] = useFetchQuestion()
 
   const questions = useSelector(state => state.questions.queue[state.questions.trace])
   const trace = useSelector(state => state.questions.trace)
 
   useEffect(() => {
-    console.log(trace)
+    // console.log(trace)
   })
 
-  function onSelected() {
-    setChecked(true);
-    // console.log(`selected ${checked}`);
+  function onSelected(index) {
+    onChecked(index)
+    setChecked(index);
   }
 
   if (isLoading) return <p>isLoading</p>
@@ -39,9 +39,10 @@ export const Questions = () => {
               <input
                 id={`q${index}`}
                 type="radio"
+                value={false}
                 name="options"
-                checked={checked}
-                onChange={onSelected}
+                // checked={checked}
+                onChange={() => onSelected(index)}
                 className="mr-2 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
               <label
