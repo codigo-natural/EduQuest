@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 // custom Hook
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchQuestion } from "../hooks/FetchQuestion";
-import { useSelector } from "react-redux";
+import { updateResult } from "../hooks/setResult";
 
 export const Questions = ({ onChecked }) => {
-  const [checked, setChecked] = useState(null);
+  const [checked, setChecked] = useState(undefined);
+  const { trace } = useSelector(state => state.questions)
   const [{ isLoading, apiData, serverError }] = useFetchQuestion()
 
   const questions = useSelector(state => state.questions.queue[state.questions.trace])
-  const trace = useSelector(state => state.questions.trace)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    // console.log(trace)
-  })
+    dispatch(updateResult({ trace, checked }))
+  }, [checked])
 
   function onSelected(index) {
     onChecked(index)
@@ -47,7 +49,7 @@ export const Questions = ({ onChecked }) => {
               />
               <label
                 htmlFor={`q${index}-option`}
-                className="text-gray-700">
+                className={`text-gray-700`}>
                 {question}
               </label>
             </li>
