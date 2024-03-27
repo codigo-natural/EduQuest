@@ -28,10 +28,17 @@ export const questionReducer = createSlice({
         trace: state.trace - 1,
       };
     },
+    resetAllAction: () => {
+      return {
+        queue: [],
+        answers: [],
+        trace: 0,
+      };
+    },
   },
 });
 
-export const { startExamAction, moveNextAction, movePrevAction } =
+export const { startExamAction, moveNextAction, movePrevAction, resetAllAction } =
   questionReducer.actions;
 
 export default questionReducer.reducer;
