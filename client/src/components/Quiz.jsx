@@ -22,7 +22,9 @@ export const Quiz = () => {
     console.log('On next click')
     if (trace < queue.length) {
       dispatch(MoveNextQuestion())
-      dispatch(PushAnswer(check))
+      if (result.length <= trace) {
+        dispatch(PushAnswer(check))
+      }
     }
   }
 
