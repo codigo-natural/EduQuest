@@ -19,7 +19,6 @@ export const Quiz = () => {
 
   // update the trace value by one using MoveNextAction
   function onNext() {
-    console.log('On next click')
     if (trace < queue.length) {
       dispatch(MoveNextQuestion())
       if (result.length <= trace) {
@@ -29,7 +28,6 @@ export const Quiz = () => {
   }
 
   function onPrev() {
-    console.log('On prev click')
     if (trace > 0) {
       dispatch(MovePrevQuestion())
     }
@@ -37,7 +35,6 @@ export const Quiz = () => {
 
   function onChecked(check) {
     setChecked(check)
-    console.log(check)
   }
 
   // finished exam after the last question
@@ -52,26 +49,28 @@ export const Quiz = () => {
 
       <Questions onChecked={onChecked} />
 
-      <div className="grid grid-cols-2">
-        <button
-          onClick={onPrev}
-          className="cursor-pointer flex items-center justify-start p-2 duration-200 hover:scale-125 active:scale-100" title="Go Back"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="50px"
-            height="50px"
-            viewBox="0 0 24 24"
-            className="stroke-blue-300"
+      <div className="grid grid-cols-2 w-1/3">
+        {
+          trace > 0 ? <button
+            onClick={onPrev}
+            className="cursor-pointer flex items-center justify-start p-2 duration-200 hover:scale-125 active:scale-100" title="Go Back"
           >
-            <path
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="1.5"
-              d="M11 6L5 12M5 12L11 18M5 12H19">
-            </path>
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="50px"
+              height="50px"
+              viewBox="0 0 24 24"
+              className="stroke-blue-300 hover:stroke-blue-900"
+            >
+              <path
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="1.5"
+                d="M11 6L5 12M5 12L11 18M5 12H19">
+              </path>
+            </svg>
+          </button> : <div></div>
+        }
         <button
           onClick={onNext}
           className="cursor-pointer flex items-center justify-end p-2 duration-200 hover:scale-125 active:scale-100" title="Go next"
@@ -81,7 +80,7 @@ export const Quiz = () => {
             width="50px"
             height="50px"
             viewBox="0 0 24 24"
-            className="stroke-blue-300 rotate-180"
+            className="stroke-blue-300 hover:stroke-blue-900 rotate-180"
           >
             <path
               strokeLinejoin="round"
