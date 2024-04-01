@@ -64,5 +64,5 @@ export const Questions = ({ onChecked }) => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
