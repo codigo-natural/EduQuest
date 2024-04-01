@@ -1,12 +1,24 @@
-import { Link } from "react-router-dom"
-import { ResultTable } from "./ResultTable";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { attempts_Number, earnPoints_Number, flagResult } from "../helper/helper";
 import { resetAllAction } from "../redux/question_reducer";
 import { resetResultAction } from "../redux/result_reducer";
+import { ResultTable } from "./ResultTable";
 
 export const Result = () => {
 
   const dispatch = useDispatch()
+  const { questions: { queue, answers }, result: { result, userId } } = useSelector(state => state)
+
+  useEffect(() => {
+    console.log(flag)
+  })
+
+  const totalPoints = queue.length * 10;
+  const attempts = attempts_Number(result)
+  const earnPoints = earnPoints_Number(result, answers, 10)
+  const flag = flagResult(totalPoints, earnPoints)
 
   function onRestart() {
     dispatch(resetAllAction())
@@ -24,19 +36,23 @@ export const Result = () => {
           </div>
           <div className="flex justify-between items-center border-b pb-2">
             <span className="font-semibold">Total Quiz Points:</span>
-            <span>50</span>
+            <span>{totalPoints || 0}</span>
           </div>
           <div className="flex justify-between items-center border-b pb-2">
             <span className="font-semibold">Total Questions:</span>
-            <span>0</span>
+            <span>{queue.length || 0}</span>
           </div>
           <div className="flex justify-between items-center border-b pb-2">
             <span className="font-semibold">Total Attempts:</span>
-            <span>03</span>
+            <span>{attempts || 0}</span>
+          </div>
+          <div className="flex justify-between items-center border-b pb-2">
+            <span className="font-semibold">Total Earn Poin:</span>
+            <span>{earnPoints || 0}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="font-semibold">Quiz Result:</span>
-            <span className="text-green-500">Passed</span>
+            <span className={`${flag ? 'text-green-500' : 'text-red-600'}`}>{flag ? 'Passed' : 'Failed'}</span>
           </div>
         </div>
 

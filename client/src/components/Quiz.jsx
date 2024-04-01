@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { MoveNextQuestion, MovePrevQuestion } from "../hooks/FetchQuestion"
 import { PushAnswer } from "../hooks/setResult"
@@ -13,10 +13,6 @@ export const Quiz = () => {
   const { queue, trace } = useSelector(state => state.questions)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    console.log(result)
-  })
-
   // update the trace value by one using MoveNextAction
   function onNext() {
     if (trace < queue.length) {
@@ -25,6 +21,9 @@ export const Quiz = () => {
         dispatch(PushAnswer(check))
       }
     }
+
+    // reset the value of the checked variable
+    setChecked(undefined)
   }
 
   function onPrev() {
