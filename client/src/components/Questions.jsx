@@ -54,9 +54,8 @@ export const Questions = ({ onChecked }) => {
             />
             <label
               htmlFor={`q${index}-option`}
-              className={`text-gray-700 ${
-                selectedOptions[trace] === index ? 'text-blue-500' : '' // Aplicar el color azul al texto si la opción está seleccionada
-              }`}
+              className={`text-gray-700 ${selectedOptions[trace] === index ? 'text-blue-500' : '' // Aplicar el color azul al texto si la opción está seleccionada
+                }`}
             >
               {question}
             </label>
