@@ -23,14 +23,13 @@ export const useFetchQuestion = () => {
           `${process.env.REACT_APP_SERVER_HOSTNAME}/api/questions`,
           (data) => data
         );
-        console.log({questions, answers});
 
         if (questions.length > 0) {
           setGetData((prev) => ({ ...prev, isLoading: false }));
-          setGetData((prev) => ({ ...prev, apiData: questions,  }));
+          setGetData((prev) => ({ ...prev, apiData: questions }));
 
           // dispatch an action
-          dispatch(Action.startExamAction({ question: questions, answers  }));
+          dispatch(Action.startExamAction({ question: questions, answers }));
         } else {
           throw new Error("No Question Avaliable");
         }
