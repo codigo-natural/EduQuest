@@ -9,7 +9,7 @@ export const Questions = ({ onChecked }) => {
 
   // Obtener el índice de la pregunta actual y el resultado del store de Redux
   const { trace } = useSelector((state) => state.questions);
-  const result = useSelector((state) => state.result.result);
+  // const result = useSelector((state) => state.result.result);
 
   // Utilizar el hook personalizado useFetchQuestion para obtener los datos de la pregunta
   const [{ isLoading, apiData, serverError }] = useFetchQuestion();
