@@ -1,24 +1,29 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { attempts_Number, earnPoints_Number, flagResult } from "../helper/helper";
 import { resetAllAction } from "../redux/question_reducer";
 import { resetResultAction } from "../redux/result_reducer";
 import { ResultTable } from "./ResultTable";
+import { usePublishResult } from "../hooks/setResult";
 
 export const Result = () => {
 
   const dispatch = useDispatch()
   const { questions: { queue, answers }, result: { result, userId } } = useSelector(state => state)
 
-  useEffect(() => {
-    console.log(flag)
-  })
-
   const totalPoints = queue.length * 10;
   const attempts = attempts_Number(result)
   const earnPoints = earnPoints_Number(result, answers, 10)
   const flag = flagResult(totalPoints, earnPoints)
+
+  // store user result
+  usePublishResult({
+    result,
+    username: userId,
+    attempts,
+    points: earnPoints,
+    achived: flag ? "passed" : "Failed"
+  })
 
   function onRestart() {
     dispatch(resetAllAction())
@@ -32,7 +37,7 @@ export const Result = () => {
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center border-b pb-2">
             <span className="font-semibold">Username:</span>
-            <span>Camilo_Dev</span>
+            <span>{userId || "Unknown"}</span>
           </div>
           <div className="flex justify-between items-center border-b pb-2">
             <span className="font-semibold">Total Quiz Points:</span>
